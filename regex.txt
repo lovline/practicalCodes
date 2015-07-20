@@ -1,0 +1,44 @@
+手机号码的验证（13开头和158，159开头，共11位）
+
+       var re;
+        var ss=document.getElementById('textbox3').value;
+        re= /^(13[0-9]{9})|(15[89][0-9]{8})$/
+        if(re.test(ss))
+         {
+           document.getElementById('label3').innerText="";   //给label赋值用innerText
+         }
+        else
+        {
+         document.getElementById('label3').innerText="请输入正确的手机号码！";
+         document.getElementById('imagebutton1').disabled=true; //禁用Button用disabled
+        }
+
+
+邮件地址的验证（包含@和.）
+
+          var re;
+          var ss=document.getElementById(textboxid).value;
+          re= /\w@\w*\.\w/
+         if(re.test(ss))
+           document.getElementById('label4').innerText="";
+         else
+         {
+           document.getElementById('label4').innerText="请输入正确的邮件地址！";
+           document.getElementById('imagebutton1').disabled=true;
+         }
+
+
+
+ 邮政编码的验证（开头不能为0，共6位）
+
+        var ss=document.getElementById('TextBox4').value;
+        var re= /^[1-9][0-9]{5}$/
+        if(re.test(ss))
+          document.getElementById('label5').innerText="";
+        else
+        {
+          document.getElementById('label5').innerText="邮政编码格式不正确！";
+
+        }
+
+var r= /^13[012345789]{9}/ 以13开头的11位数,后9位不能出现数字6
