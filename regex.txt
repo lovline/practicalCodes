@@ -1,20 +1,20 @@
-ÊÖ»úºÅÂëµÄÑéÖ¤£¨13¿ªÍ·ºÍ158£¬159¿ªÍ·£¬¹²11Î»£©
+ï»¿æ‰‹æœºå·ç çš„éªŒè¯ï¼ˆ13å¼€å¤´å’Œ158ï¼Œ159å¼€å¤´ï¼Œå…±11ä½ï¼‰
 
        var re;
         var ss=document.getElementById('textbox3').value;
         re= /^(13[0-9]{9})|(15[89][0-9]{8})$/
         if(re.test(ss))
          {
-           document.getElementById('label3').innerText="";   //¸ølabel¸³ÖµÓÃinnerText
+           document.getElementById('label3').innerText="";   //ç»™labelèµ‹å€¼ç”¨innerText
          }
         else
         {
-         document.getElementById('label3').innerText="ÇëÊäÈëÕıÈ·µÄÊÖ»úºÅÂë£¡";
-         document.getElementById('imagebutton1').disabled=true; //½ûÓÃButtonÓÃdisabled
+         document.getElementById('label3').innerText="è¯·è¾“å…¥æ­£ç¡®çš„æ‰‹æœºå·ç ï¼";
+         document.getElementById('imagebutton1').disabled=true; //ç¦ç”¨Buttonç”¨disabled
         }
 
 
-ÓÊ¼şµØÖ·µÄÑéÖ¤£¨°üº¬@ºÍ.£©
+é‚®ä»¶åœ°å€çš„éªŒè¯ï¼ˆåŒ…å«@å’Œ.ï¼‰
 
           var re;
           var ss=document.getElementById(textboxid).value;
@@ -23,13 +23,13 @@
            document.getElementById('label4').innerText="";
          else
          {
-           document.getElementById('label4').innerText="ÇëÊäÈëÕıÈ·µÄÓÊ¼şµØÖ·£¡";
+           document.getElementById('label4').innerText="è¯·è¾“å…¥æ­£ç¡®çš„é‚®ä»¶åœ°å€ï¼";
            document.getElementById('imagebutton1').disabled=true;
          }
 
 
 
- ÓÊÕş±àÂëµÄÑéÖ¤£¨¿ªÍ·²»ÄÜÎª0£¬¹²6Î»£©
+ é‚®æ”¿ç¼–ç çš„éªŒè¯ï¼ˆå¼€å¤´ä¸èƒ½ä¸º0ï¼Œå…±6ä½ï¼‰
 
         var ss=document.getElementById('TextBox4').value;
         var re= /^[1-9][0-9]{5}$/
@@ -37,8 +37,8 @@
           document.getElementById('label5').innerText="";
         else
         {
-          document.getElementById('label5').innerText="ÓÊÕş±àÂë¸ñÊ½²»ÕıÈ·£¡";
+          document.getElementById('label5').innerText="é‚®æ”¿ç¼–ç æ ¼å¼ä¸æ­£ç¡®ï¼";
 
         }
 
-var r= /^13[012345789]{9}/ ÒÔ13¿ªÍ·µÄ11Î»Êı,ºó9Î»²»ÄÜ³öÏÖÊı×Ö6
+var r= /^13[012345789]{9}/ ä»¥13å¼€å¤´çš„11ä½æ•°,å9ä½ä¸èƒ½å‡ºç°æ•°å­—6
