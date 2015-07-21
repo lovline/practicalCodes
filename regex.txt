@@ -1,5 +1,4 @@
 ﻿手机号码的验证（13开头和158，159开头，共11位）
-
        var re;
         var ss=document.getElementById('textbox3').value;
         re= /^(13[0-9]{9})|(15[89][0-9]{8})$/
@@ -12,8 +11,6 @@
          document.getElementById('label3').innerText="请输入正确的手机号码！";
          document.getElementById('imagebutton1').disabled=true; //禁用Button用disabled
         }
-
-
 邮件地址的验证（包含@和.）
 
           var re;
