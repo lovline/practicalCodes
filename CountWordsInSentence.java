@@ -61,4 +61,21 @@ class CountCharactersInString {
 	}
 
 }
+
+		//第一种遍历hashmap的方法
+	/*	Iterator ite=map.entrySet().iterator();
+		while(ite.hasNext()){
+			Map.Entry entry=(Map.Entry) ite.next();
+			Character cc= (Character)entry.getKey();
+			Integer num=(Integer) entry.getValue();
+			System.out.println(cc + "有 " + num + " 个");
+		}
+		//第二种遍历hashmap的方法
+		Set key = map.keySet();
+		for (Iterator iterator = key.iterator(); iterator.hasNext();) {
+			Character name = (Character) iterator.next();
+			int countNum = map.get(name);
+			System.out.println(name + "有 " + countNum + " 个");
+		}
+	*/
  
