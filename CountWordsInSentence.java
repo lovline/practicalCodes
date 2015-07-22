@@ -1,5 +1,17 @@
 package com.bjsxt.doitmyself.test;
 
+
+/**
+ * 2015、7、22
+ * 华为机试很深刻的一点是：
+ * Map、Set都是无序的。。。
+ * 要是要求你去掉重复的字母或者顺序
+ * 第一次出现的有重复的保留下来
+ * 如：122222aab2
+ *   输出：12ab
+ *  这个时候你用Map是得不到想要的效果的。。
+ *  以前怎么就没注意呢。。太不小心了。
+ */
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -78,4 +90,3 @@ class CountCharactersInString {
 			System.out.println(name + "有 " + countNum + " 个");
 		}
 	*/
- 
