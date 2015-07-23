@@ -12,8 +12,16 @@ package com.bjsxt.doitmyself.test;
  *  这个时候你用Map是得不到想要的效果的。。
  *  以前怎么就没注意呢。。太不小心了。
  */
+/**
+ * 7、23改正这个bug
+ * Map是无序的
+ * 不过用LinkedHashMap就是有序了。
+ * 这个一定要记住
+ * TreeSet也是一样的道理。
+ */
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -25,7 +33,8 @@ public class CountWordsInSentence {
 		System.out.println("please enter a sentence ...");
 		Scanner sc = new Scanner(System.in);
 		String[] ss = sc.nextLine().trim().split(" ");
-		Map map = new HashMap();
+		//Map map = new HashMap(); 原来的代码
+		Map map = new LinkedHashMap();
 
 		for (int i = 0; i < ss.length; i++) {
 			int count = 0;
@@ -45,6 +54,7 @@ public class CountWordsInSentence {
 			String countNum = map.get(name).toString();
 			System.out.println(name + "有 " + countNum + " 个");
 		}
+	
 
 	}
 }
@@ -52,21 +62,26 @@ public class CountWordsInSentence {
 
 class CountCharactersInString {
 	public static void main(String args[]) {
-		String s = "I am a student.I come from XiDian.I love XiDian."; // 待测试的字符串
+		String s = "1222aab2"; // 待测试的字符串
 		String ss = s.toLowerCase();
 		System.out.println(ss);
 		Map<Character, Integer> result = getCharMaps(ss);
 		System.out.println(result);// 打印出字符串中各字符出现的次数！
-		System.out.println(result.get('i'));
-
 	}
 
 	public static Map<Character, Integer> getCharMaps(String s) {
-		Map<Character, Integer> map = new HashMap<Character, Integer>();
+		Map<Character, Integer> map = new LinkedHashMap<Character, Integer>();
 		for (int i = 0; i < s.length(); i++) {
 			Character c = s.charAt(i);
 			Integer count = map.get(c);
 			map.put(c, count == null ? 1 : count + 1);
+		}
+		Iterator ite=map.entrySet().iterator();
+		while(ite.hasNext()){
+			Map.Entry entry=(Map.Entry) ite.next();
+			Character cc= (Character)entry.getKey();
+			Integer num=(Integer) entry.getValue();
+			System.out.print(cc +"\t");
 		}
 		return map;
 
