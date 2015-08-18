@@ -1,10 +1,19 @@
 package com.xd.summary.doitmyself;
 
 import java.io.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Mussy_summary {
 
@@ -129,8 +138,105 @@ public class Mussy_summary {
 		Properties props = new Properties();
 		FileInputStream fis = new FileInputStream(new File("d:/a.txt"));
 		props.load(fis);
-		System.out.println(props); //注意顺序是乱的*/
+		System.out.println(props); //注意顺序是乱的
 	 	
+		try {
+			//通过名称（ip字符串or主机名）来获取一个ip对象
+			InetAddress ia = InetAddress.getByName("www.baidu.com");
+			System.out.println("address:"+ia.getHostAddress());
+			System.out.println("name:"+ia.getHostName());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//UDP通信
+		//udp的发送端（客户端）
+		try {
+			//1.建立upd的socket服务。
+			DatagramSocket ds = new DatagramSocket(8888);
+			//2.明确要发送的具体数据。
+			String text = "udp传输。。。";
+			byte[] buf = text.getBytes();
+			//3.将数据封装成数据包。
+			DatagramPacket dp = new DatagramPacket(buf, buf.length,
+					InetAddress.getByName("127.0.0.1"),10000);
+			//4.用socket服务的send方法将数据包发送出去。
+			ds.send(dp);
+			//5.关闭资源。
+			ds.close();
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//upd的接收端（服务器端）
+		try {
+			//1.创建upd的socket服务
+			DatagramSocket ds = new DatagramSocket(10000);
+			//2.定义数据包，用于存储接收到的数据，先定义字节数组，数据包会吧数据存储在字节数组中
+			byte[] buf = new byte[1024];
+			DatagramPacket dp = new DatagramPacket(buf, buf.length);
+			//3.通过socket服务的接收方法将接收到的数据存储在数据包中。
+			ds.receive(dp); //该方法是阻塞式的方法。
+			//4.通过数据包的方法获取数据包中的具体数据内容，比如ip,端口，数据等等。
+			String ip = dp.getAddress().getHostAddress();
+			int port = dp.getPort();
+			String text = new String(dp.getData(),0,dp.getLength());
+			System.out.println(ip+"--"+port+"--"+text);
+			//5.关闭资源
+			ds.close();
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//TCP通信
+		//socket客户端
+		try {
+			Socket s = new Socket("127.0.0.1",10002);
+			OutputStream os = s.getOutputStream();//获取了socket流中的输出流对象
+			os.write("tcp演示 哥们我又来了".getBytes());
+			s.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//socket服务器端
+		try {
+			ServerSocket ss = new ServerSocket(10002);
+			Socket s = ss.accept();//获取客户端对象
+			String ip = s.getInetAddress().getHostAddress();
+			System.out.println(ip+"....connected");
+			//通过可以获取到的socket对象中的socket流和具体的客户端进行通讯
+			InputStream is = s.getInputStream();//读取客户端的数据
+			byte[] buf = new byte[1024];
+			int len = is.read(buf);
+			String text = new String(buf,0,len);
+			System.out.println(text);
+			//如果通讯结束，关闭资源。 注意：要先关客户端，再关服务器端。
+			s.close();
+			ss.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//字符串和正则表达式的应用
+		Pattern pattern = Pattern.compile("([a-z]+)");
+		String s = "woejf123ojfafj987";
+		Matcher matcher = pattern.matcher(s);
+		String str = "";
+		while(matcher.find()){
+			str+=matcher.group(1);
+		}
+		System.out.println(str);
+		*/
 		
 	}
 
