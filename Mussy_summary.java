@@ -257,7 +257,13 @@ public class Mussy_summary {
 			System.out.print(aa[aa.length-i-1]+"\t");
 			//45 78	56 34 12
 		}
-*/		
+
+		String str = "你是谁abcajdfj想要汉子数目123哦5dkfj";
+		//String regex = "[\u4e00-\u9fa5]+"; //正则表达式至少匹配一个汉字。
+		String regex = "[\u4E00-\u9FA5]+"; //正则表达式至少匹配一个汉字。
+		String newStr = str.replaceAll(regex, "~_~");
+		System.out.println(newStr);
+*/	
 	}
 
 }
