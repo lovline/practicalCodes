@@ -237,7 +237,27 @@ public class Mussy_summary {
 		}
 		System.out.println(str);
 		*/
+/*		String str = "12 34   56   89 10";
+		String[] numStr = str.split(" {1,}");
+		String[] numStr = str.split("\\s+");
+		for(String num:numStr){
+			System.out.println(num);
+		}
 		
+		int[][] arr = new int[][]{{1,2},{3,4},{5,6}};
+		System.out.println(arr.length); //3
+		System.out.println(arr[0].length);  //2
+		
+		StringBuffer sb = new StringBuffer("12 34 56 78 45");
+		String str = sb.toString();		
+		sb.reverse();
+		System.out.println(sb);  //54 87 65 43 21
+		String[] aa = str.split(" {1,}");
+		for(int i=0;i<aa.length;i++){
+			System.out.print(aa[aa.length-i-1]+"\t");
+			//45 78	56 34 12
+		}
+*/		
 	}
 
 }
