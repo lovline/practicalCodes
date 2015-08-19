@@ -263,7 +263,34 @@ public class Mussy_summary {
 		String regex = "[\u4E00-\u9FA5]+"; //正则表达式至少匹配一个汉字。
 		String newStr = str.replaceAll(regex, "~_~");
 		System.out.println(newStr);
-*/	
+
+		//查看常用变量的取值范围
+		System.out.print(Byte.MIN_VALUE+"");
+		System.out.print("\t");
+		System.out.println(Byte.MAX_VALUE+"");
+		System.out.print(Short.MIN_VALUE+"");
+		System.out.print("\t");
+		System.out.println(Short.MAX_VALUE+"");
+		System.out.print(Integer.MIN_VALUE+"");
+		System.out.print("\t");
+		System.out.println(Integer.MAX_VALUE+"");
+		System.out.print(Float.MIN_VALUE+"");
+		System.out.print("\t");
+		System.out.println(Float.MAX_VALUE+"");
+		System.out.print(Double.MIN_VALUE+"");
+		System.out.print("\t");
+		System.out.println(Double.MAX_VALUE+"");
+		
+		//验证手机号码是否合法
+		String text = "13474036477";
+		String regex = "^[13|15|18]{2}\\d{9}$";
+		//String regex = "^13\\d{9}|15\\d{9}|18\\d{9}$";
+		if(text.matches(regex)){
+			System.out.println("phone number is legal");
+		}else{
+			System.out.println("phone number is unlegal");
+		}
+*/		
 	}
 
 }
