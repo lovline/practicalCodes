@@ -193,4 +193,498 @@
 	Lock接口中并没有直接操作等待唤醒的方法，而是将这些方式又单独封装到一个对象中，这个对象就是Condition。
 		将Object中的三个方法进行单独的封装，并提供了功能一致的方法：await（），signal（），signalAll（）。
 28.String<java.lang>
-	字符串一旦被初始化，就不可以被改变，存放在方法区中的常量池中。	
+	字符串一旦被初始化，就不可以被改变，存放在方法区中的常量池中。
+	String s1 = "abc" //s1指向内存中只有一个对象abc
+	String s2 = new String("abc"); //s2指向内存中有两个对象abc new 
+	拼字符串时不用for循环，因为会创建多个对象，浪费内存空间。
+	字符串中equals比较的是字符串内容是否相同。
+	String常用方法（important）
+		构造方法：将字符数组或者字节数组转成字符串
+			new String(char[])
+		1)获取
+			length()：获取字符串的长度。
+			char charAt(int index):获取指定位置的字符。
+			int indexOf(char ch):获取第一次找到的字符角标，如果不存在就返回-1。
+			int indexOf(String str):获取第一次找到的字符串角标。
+			int lastIndexOf(char ch)。
+			String substring(int start,int end):获取子字符串，[start，end)。
+		2)判断
+			boolean contains(String substring):是否包含指定的字符串。
+			boolean startsWith(String):是否以指定字符串开头。
+			boolean endsWith(String)。
+			boolean equals(String):覆盖了Object中的方法，判断内容是否相同。
+			boolean equalsIgnoreCase(String)。
+		3)转换
+			通过构造方法可以将字符数组或者字节数组转成字符串。
+			static String valueOf(char[]):通过静态方法，将字符数组转成字符串。
+			将基本数据类型或者对象转成字符串。
+				static String valueOf(char)
+				static String valueOf(boolean)
+				static String valueOf(double)
+				static String valueOf(float)
+				static String valueOf(int)
+				static String valueOf(long)
+				static String valueOf(Object)
+			将字符串转成大小写
+				String toLowerCase();
+				String toUpperCase();
+			将字符串转成数组
+				char[] toCharArray() //转成字符数组。
+				String[] split(分割的规则-字符串) //切割方法。
+				byte[] getBytes() //可以加入编码表，转成字节数组。
+			将字符串进行内容替换 注意：修改后变成新的字符串，并不是将原字符串直接修改。
+				String replace(oldChar,newChar)
+				String replace(oldString,newString)
+				String replaceAll(String regex,String replacement)
+				String concat(string) //对字符串进行追加
+				String trim(string) //去除字符串两端的空格
+29.StringBuffer字符缓冲区<java.lang>   ---字符串本身发生变化。
+		构造一个其中不带字符的字符串缓冲区，初始容量为16个字符。
+		特点：
+			可以对字符串内容进行修改。
+			是一个可边长度的容器。
+			缓冲区可以存储任意类型的数据。
+			最终需要变成字符串。
+		添加
+			StringBuffer append(data):在缓冲区中追加数据，追加到尾部。
+			StringBuffer insert(index,data):在指定位置插入数据。
+		删除
+			StringBuffer delete(start,end)：删除从start到end-1范围的元素。
+			StringBuffer deleteCharAt(index):删除指定位置的元素。
+			StringBuffer.delete(0,sb.length):清空缓存区。
+		修改
+			StringBuffer replace(start,end,string)
+			void setCharAt(index,char):替换指定位置的字符。
+			void setLength(len):将原字符串设置为指定长度的字符串，多余元素会删除。
+		查找
+			int indexOf(string) / lastIndexOf(string)
+			String substring(start,end):获取子串。
+		反转
+			StringBuffer reverse():字符串反转。
+30.StringBuilder字符串缓冲区<java.lang>   ---字符串本身发生变化。
+	构造其中一个不带字符的字符串生成器，初始容量为16个字符，用作StringBuffer的一个简易替换，用在字符串缓冲区被单个线程使用的情况。
+	StringBuffer和StringBuilder的区别：
+		StringBuffer线程安全，多线程操作时安全。
+		StringBuilder线程不安全，单线程操作时效率高。
+	方法和StringBuffer一样。
+	经典案例
+		class  Test{
+			public static void main(String[] args) {
+				String s1 = "java";
+				String s2 = "hello";
+				method_1(s1,s2);
+				System.out.println(s1+"...."+s2); //java....hello
+				
+				StringBuilder s11 = new StringBuilder("java");
+				StringBuilder s22 = new StringBuilder("hello");
+				method_2(s11,s22);
+				System.out.println(s11+"-----"+s22); //javahello-----hello
+			}
+			public static void method_1(String s1,String s2){
+				s1.replace('a','k');
+				s1 = s2;
+			}
+			public static void method_2(StringBuilder s1,StringBuilder s2){
+				s1.append(s2);
+				s1 = s2;
+			}
+		}
+31.Integer对象
+	Integer.parseInt(numString):将数字格式字符串转成基本数据类型。
+	Integer.toBinaryString:将一个十进制转成二进制。
+	Integer.toOctalString:将一个十进制转成八进制。
+	Integer.toHexString:将一个十进制转成十六进制。
+	将给定的数值转换成指定的基数进制
+		Integer.parseInt(String,radix)
+		Integer.parseInt("1010",2) ---|10
+		Integer.parseInt("-FF",16) ---|-255
+32.Collection接口<java.util>
+	添加
+		add(object):添加一个元素。
+		add(collection):添加一个集合中所有元素。
+	删除
+		clear():清空集合。
+		remove(object):删除集合中指定元素 注意：删除成功，集合的长度会发生改变。
+		removeAll(collection):删除部分元素。
+	判断
+		boolean contains(object):集合中是否包含指定元素。
+		boolean isEmpty():集合中是否有元素。
+	获取
+		int size():集合中有几个元素。
+		Iterator iterator():迭代器获取元素。 ---迭代器是一个接口，用于取集合中的元素。
+	将集合变成数组
+		toArray()。	
+33.List接口<java.util>		
+	List:有序（元素存入集合的顺序和取出的顺序一致），元素有索引，元素可以重复。
+		--ArrayList：底层的数据结构是数组，线程不同步，替代了Vector，查询元素的速度非常快。
+		--LinkedList：底层的数据结构是链表，线程不同步，增删元素的速度非常快。
+		--Vector：底层的数据结构是数组，线程同步，无论查询和增删都巨慢。
+	有Collection接口的一切方法。
+		Object get(index):通过索引获得指定元素。
+		List subList(start,end):获取子列表。
+		Object set(index,element):对指定索引位置元素进行修改。
+		获取所有元素
+			ListIterator listInterator():list集合特有的迭代器。
+	List集合支持对元素的增、删、改、查---CRUD。
+	可变长度数组的原理
+		当元素超出数组长度时，会产生一个新的数组，将原数组的数据复制到新数组中，再将新的元素添加到新数组中。
+		ArrayList：是按照原数组的50%延长，构造一个初始容量为10的空列表。
+		Vector：是按照原数组的100%延长。
+	LinkedList的几个特有方法
+		添加：offerFisrst()  offerLast()
+		得到：peekFirst():获取链表中的第一个元素，如果链表为空，返回null。---peekLast()
+		删除: pollFirst() pollLast()
+34.Set接口<java.util>
+	Set接口中的方法和Collection接口中的方法一致。Set接口取出方式只有一种：迭代器。
+	--HashSet：底层数据结构是哈希表，线程是不同步的，无序，高效。
+		HashSet集合保证元素唯一性：通过元素的hashCode方法和equals方法完成。当元素的hashCode值相同时，
+		才继续判断元素的equals是否为true。如果为true，那么视为相同元素，不存。如果为false，那么存储。
+		如果hashCode值不同，那么不判断equals，从而提高对象比较的速度。
+		--LinkedHashSet：有序，HashSet的子类。
+	--TreeSet：对Set集合中的元素进行制定顺序的排序，不同步，TreeSet底层的数据结构就是二叉树。
+	哈希表的原理：
+		1，对对象元素中的关键字(对象中的特有数据)，进行哈希算法的运算，并得出一个具体的算法值，这个值 称为哈希值。
+		2，哈希值就是这个元素的位置。
+		3，如果哈希值出现冲突，再次判断这个关键字对应的对象是否相同。如果对象相同，就不存储，因为元素重复。如果对象不同，
+			就存储，在原来对象的哈希值基础 +1顺延。
+		4，存储哈希值的结构，我们称为哈希表。
+		5，既然哈希表是根据哈希值存储的，为了提高效率，最好保证对象的关键字是唯一的。这样可以尽量少的判断
+			关键字对应的对象是否相同，提高了哈希表的操作效率。
+		对于ArrayList集合，判断元素是否存在，或者删元素底层依据都是equals方法。
+		对于HashSet集合，判断元素是否存在，或者删除元素，底层依据的是hashCode方法和equals方法。		
+		如果元素不具备比较性，在运行时就会发生ClassCastException异常。
+		TreeSet集合排序有两种方式，Comparable和Comparator区别：
+			1：让元素自身具备比较性，需要元素对象实现Comparable接口，覆盖compareTo方法。
+			2：让集合自身具备比较性，需要定义一个实现了Comparator接口的比较器，并覆盖compare方法，
+				并将该类对象作为实际参数传递给TreeSet集合的构造函数。（此方式较为灵活）
+35.Map集合<java.util>
+	--Hashtable:底层是哈希表数据结构，线程同步，不可以存储null键，null值。
+	--HashMap：底层是哈希表数据结构，线程不同步，可以存储null键，null值，替代了Hashtable。
+	--TreeMap：底层是二叉树结构，可以对map集合中的键进行指定顺序的排序。
+	Map集合存储和Collection有着很大不同：
+		Collection一次存一个元素；Map一次存一对元素。
+		Collection是单列集合；Map是双列集合。
+		Map中的存储的一对元素：一个是键，一个是值，键与值之间有对应(映射)关系。
+		特点：要保证map集合中键的唯一性。
+	添加
+		put(key,value):当存储的键相同时，新的值会替换老的值。
+		void putAll(Map)
+	删除
+		void clear():清空。
+		value remove(key):删除指定键。
+	判断
+		boolean isEmpty()
+		boolean containsKey()：是否包含key。
+		boolean containsValue()
+	取出
+		int size()
+		value get(key)：通过指定键获取对应的值，如果返回的null，可以判断键不存在。
+		Collection values():获取map集合中的所有值。
+	想要获取Map中的元素
+		原理：map是没有迭代器的，（Map和Collection是同一个级别的）collection接口具有迭代器，只要将Map集合转成Set集合，
+			就可以使用迭代器了。之所以转成Set，是因为Map集合具备着键的唯一性，其实Set集合就来自由Map，Set集合底层其实用的
+			就是Map的方法。
+	把Map集合转成Set的方法
+		Set keySet()
+		Set entrySet()://取的是键和值的映射关系。
+		Entry是Map接口中的内部接口，是访问键值关系的入口，是map的入口，访问的是map中的键值对。
+		取出map集合中所有元素的方式一：keySet()方法。
+			可以将map集合中的键都取出存放到set集合中。对set集合进行迭代。迭代完成，再通过get方法对获取到的键进行值的获取。
+			Set keySet = map.keySet();
+			Iterator it = keySet.iterator();
+			while(it.hasNext()) {
+				Object key = it.next();
+				Object value = map.get(key);
+				System.out.println(key+":"+value);
+			}
+		取出map集合中所有元素的方式二：entrySet()方法。
+			Set entrySet = map.entrySet();
+			Iterator it = entrySet.iterator();
+			while(it.hasNext()) {
+				Map.Entry  me = (Map.Entry)it.next();
+				System.out.println(me.getKey()+"::::"+me.getValue());
+			}	
+
+36.使用集合的技巧
+	看到Array就是数组结构，有角标，查询速度很快。
+	看到linked就是链表结构：增删速度快，而且有特有方法。addFirst； addLast； removeFirst()； removeLast()； getFirst()；getLast()；
+	看到hash就是哈希表，就要想要哈希值，就要想到唯一性，就要想到存入到该结构的中的元素必须覆盖hashCode，equals方法。
+	看到tree就是二叉树，就要想到排序，就想要用到比较。
+	比较的两种方式：
+		一个是Comparable：覆盖compareTo方法；
+		一个是Comparator：覆盖compare方法。
+	LinkedHashSet，LinkedHashMap:这两个集合可以保证哈希表有存入顺序和取出顺序一致，保证哈希表有序。
+	集合什么时候用？
+		当存储的是一个元素时，就用Collection。当存储对象之间存在着映射关系时，就使用Map集合。
+	保证唯一，就用Set/Map。不保证唯一，就用List。		
+37.Collections：它的出现给集合操作提供了更多的功能。这个类不需要创建对象，内部提供的都是静态方法。
+	Collections.sort(list);//list集合进行元素的自然顺序排序。
+	Collections.sort(list,new ComparatorByLen());//按指定的比较器方法排序。
+		class ComparatorByLen implements Comparator<String>{
+			public int compare(String s1,String s2){
+				int temp = s1.length()-s2.length();
+				return temp==0?s1.compareTo(s2):temp;
+			}
+		}
+	Collections.max(list); //返回list中字典顺序最大的元素。
+	int index = Collections.binarySearch(list,"zz");//二分查找，返回角标。
+	Collections.reverseOrder();//逆向反转排序。
+	Collections.shuffle(list);//随机对list中的元素进行位置的置换。
+	将非同步集合转成同步集合的方法：Collections中的  XXX synchronizedXXX(XXX);
+	List synchronizedList(list);
+	Map synchronizedMap(map);
+	原理：定义一个类，将集合所有的方法加同一把锁后返回。
+	Collection 和 Collections的区别：
+		Collections是个java.util下的类，是针对集合类的一个工具类,提供一系列静态方法,实现对集合的查找、排序、替换、
+			线程安全化（将非同步的集合转换成同步的）等操作。
+		Collection是个java.util下的接口，它是各种集合结构的父接口，继承于它的接口主要有Set和List,
+			提供了关于集合的一些操作,如插入、删除、判断一个元素是否其成员、遍历等。
+38.Arrays:用于操作数组对象的工具类，里面都是静态方法。
+39.jdk5.0新特性
+	增强for循环
+		使用时，必须明确被遍历的目标，可以使Collection集合或者数组。
+		Map可以用它遍历吗：不可以，但将map转为set后可以使用它遍历。
+		1)、作用：对存储对象的容器进行迭代： 数组  collection   map
+		2)、增强for循环迭代数组：
+			String [] arr = {"a", "b", "c"};//数组的静态定义方式，只试用于数组首次定义的时候
+			for(String s : arr) {
+				System.out.println(s);	
+			}
+		3)、单列集合 Collection：
+			List list = new ArrayList();
+			list.add("aaa"); // 增强for循环, 没有使用泛型的集合能不能使用增强for循环迭代？能
+			for(Object obj : list) {
+				String s = (String) obj;
+				System.out.println(s);
+			}
+		4)、双列集合 Map：
+			Map map = new HashMap();
+			map.put("a", "aaa");  // 传统方式：必须掌握这种方式
+			Set entrys = map.entrySet(); // 1.获得所有的键值对Entry对象
+			iter = entrys.iterator(); // 2.迭代出所有的entry
+			while(iter.hasNext()) {
+				Map.Entry entry = (Entry) iter.next();
+				String key = (String) entry.getKey(); // 分别获得key和value
+				String value = (String) entry.getValue();
+				System.out.println(key + "=" + value);
+			}
+		// 增强for循环迭代：原则上map集合是无法使用增强for循环来迭代的，因为增强for循环只能针对实现了
+			Iterable接口的集合进行迭代；Iterable是jdk5中新定义的接口，就一个方法iterator方法，只有
+			实现了Iterable接口的类，才能保证一定有iterator方法，java有这样的限定是因为增强for循环内部
+			还是用迭代器实现的，而实际上，我们可以通过某种方式来使用增强for循环。
+			for(Object obj : map.entrySet()) {
+				Map.Entry entry = (Entry) obj;  // obj 依次表示Entry
+				System.out.println(entry.getKey() + "=" + entry.getValue());
+			}
+		5）、集合迭代注意问题：在迭代集合的过程中，不能对集合进行增删操作（会报并发访问异常）；可以用迭代器的
+			方法进行操作（子类listIterator：有增删的方法）。
+		6)、增强for循环注意问题：在使用增强for循环时，不能对元素进行赋值；
+			int[] arr = {1,2,3};
+			for(int num : arr) {
+				num = 0; //不能改变数组的值
+			}
+			System.out.println(arr[1]); //2
+		
+		可变参数（...）：用在函数的参数上，当要操作的同一个类型元素个数不确定时，可以用这个方式，这个参数可以接收任意
+			个数的同一类型的数据。可变参数必须定义在参数列表末尾，否则编译会出错。
+40.System属性和行为都是静态的<java.lang>
+	long currentTimeMillis(); // 返回当前时间毫秒值
+	exit();  // 退出虚拟机
+	Properties getProperties() ;  // 获取当前系统的属性信息
+	Properties prop = System.getProperties(); //获取系统的属性信息，并将这些信息存储到Properties集合中。 
+	System.setProperty("myname","毕老师"); //给系统属性信息集添加具体的属性信息
+	//临时设置方式：运行jvm时，可以通过jvm的参数进行系统属性的临时设置，可以在java命令的后面加入 –D<name>=<value> 
+		用法：java –Dmyname=小明 类名。
+	String name = System.getProperty("os.name");//获取指定属性的信息
+41.Math<java.util>用于数学运算的工具类，属性和行为都是静态的，该类是final不允许继承
+	static double ceil(double a) ; //返回大于指定数值的最小整数---向上取整
+	static double floor(double a) ; //返回小于指定数值的最大整数---向下取整
+	static long round(double a) ; //四舍五入成整数
+	static double pow(double a, double b) ; //a的b次幂
+	static double random(); //返回0~1的伪随机数
+42.Date<java.util>：日期类
+	日期对象和毫秒值之间的转换
+		Date d = new Date(); //日期对象转成毫秒值
+		long time1 = d.getTime();
+		long time2 = System.currentTimeMillis(); / /毫秒值。
+		long time = 1322709921312l; //毫秒值转成具体的日期
+		Date d = new Date();
+		d.setTime(time);
+	日期格式到字符串的转化
+		Date d = new Date();
+		DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);    2015年8月17号
+		df = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG);  2015年8月17号 下午 03时10分02秒
+		String str_time = df.format(d);
+	创建日期格式对象自定义日期
+		DateFormat df = new SimpleDateFormat();  //该对象的建立内部会封装一个默认的日期格式。11-12-1 下午1:48
+		df = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+		String str_time = df.format(d);  //调用DateFormat中的format方法。对已有的日期对象进行格式化。
+43.Calendar<java.util>：日历类
+	Calendar c = Calendar.getInstance();
+	System.out.println(c.get(Calendar.YEAR)+"年"+(c.get(Calendar.MONTH)+1)+"月"
+						+getNum(c.get(Calendar.DAY_OF_MONTH))+"日"
+						+"星期"+getWeek(c.get(Calendar.DAY_OF_WEEK)));
+44.IO流
+	FileWriter fw = new FileWriter("demo.txt"); // FileNotFoundException
+	调用Writer类中的write方法写入字符串。字符串并未直接写入到目的地中，而是写入到了流中，(其实是写入到内存缓冲区中)。
+	文件写入的核心代码
+		fw.write("abcde");
+		fw.flush(); // 刷新缓冲区，将缓冲区中的数据刷到目的地文件中。
+		fw.close(); // 关闭流，其实关闭的就是java调用的系统底层资源。在关闭前，会先刷新该流。
+	close()和flush()的区别：
+		flush()：将缓冲区的数据刷到目的地中后，流可以使用。
+		close()：将缓冲区的数据刷到目的地中后，流就关闭了，该方法主要用于结束调用的底层资源。这个动作一定做。
+	io异常的处理方式：io一定要写finally；
+	FileWriter写入数据的细节：
+		1：window中的换行符：\r\n两个符号组成。 linux：\n。
+		2：续写数据，只要在构造函数中传入新的参数true。
+		3：目录分割符：window \\  /	
+	文件读取
+		第一种：直接读取
+			FileReader fr = new FileReader("demo.txt");
+			int ch = 0;
+			while((ch = fr.read())!= -1) { //条件是没有读到结尾
+				System.out.println((char)ch); //调用读取流的read方法，读取一个字符。
+			}
+			fr.close();
+		第二种：较为高效，自定义缓冲区。（文件读取的核心代码）
+			FileReader fr = new FileReader("demo.txt"); //创建读取流对象和指定文件关联。
+			//因为要使用read(char[])方法，将读取到字符存入数组。所以要创建一个字符数组，一般数组的长度都是1024的整数倍。
+			char[] buf = new char[1024];
+			int len = 0;
+			while(( len=fr.read(buf)) != -1) {
+				System.out.println(new String(buf,0,len));
+			}
+			fr.close();
+		转换流最强功能计时基于 字节流+编码表
+			FileReader fr = new FileReader("a.txt");
+			InputStreamReader isr = new InputStreamReader(new FileInputStream("a.txt"),"gbk");
+			以上两句代码功能一致，
+			如果仅仅使用平台默认码表，就使用FileReader fr = new FileReader("a.txt"); //因为简化。
+45.File类：将文件系统中的文件和文件夹封装成了对象。提供了更多的属性和行为可以对这些文件和文件夹进行操作。
+	这些是流对象办不到的，因为流只操作数据。
+	1：创建。
+		boolean createNewFile()：在指定目录下创建文件，如果该文件已存在，则不创建。
+			而对操作文件的输出流而言，输出流对象已建立，就会创建文件，如果文件已存在，会覆盖。除非续写。
+		boolean mkdir()：创建此抽象路径名指定的目录。
+		boolean mkdirs()：创建多级目录。 
+	2：删除。
+		boolean delete()：删除此抽象路径名表示的文件或目录。
+		void deleteOnExit()：在虚拟机退出时删除。
+		注意：在删除文件夹时，必须保证这个文件夹中没有任何内容，才可以将该文件夹用delete删除。
+		window的删除动作，是从里往外删。注意：java删除文件不走回收站。要慎用。
+	3：获取.
+		long length()：获取文件大小。
+		String getName()：返回由此抽象路径名表示的文件或目录的名称。
+		String getPath()：将此抽象路径名转换为一个路径名字符串。
+		String getAbsolutePath()：返回此抽象路径名的绝对路径名字符串。
+		String getParent()：返回此抽象路径名父目录的抽象路径名，如果此路径名没有指定父目录，则返回 null。
+		long lastModified()：返回此抽象路径名表示的文件最后一次被修改的时间。
+		File.pathSeparator：返回当前系统默认的路径分隔符，windows默认为 “；”。
+		File.Separator：返回当前系统默认的目录分隔符，windows默认为 “\”。
+	4：判断：
+		boolean exists()：判断文件或者文件夹是否存在。
+		boolean isDirectory()：测试此抽象路径名表示的文件是否是一个目录。
+		boolean isFile()：测试此抽象路径名表示的文件是否是一个标准文件。
+		boolean isHidden()：测试此抽象路径名指定的文件是否是一个隐藏文件。
+		boolean isAbsolute()：测试此抽象路径名是否为绝对路径名。
+	5：重命名。
+	 	boolean renameTo(File dest)：可以实现移动的效果。剪切+重命名。
+	String[] list()：列出指定目录下的当前的文件和文件夹的名称。包含隐藏文件。
+46.RandomAccessFile类
+	特点：
+		该对象即可读取，又可写入。
+		该对象中的定义了一个大型的byte数组，通过定义指针来操作这个数组。
+		可以通过该对象的getFilePointer()获取指针的位置，通过seek()方法设置指针的位置。
+		该对象操作的源和目的必须是文件。 
+		其实该对象内部封装了字节读取流和字节写入流。
+		注意：实现随机访问，最好是数据有规律。
+	代码
+		RandomAccessFile raf = new RandomAccessFile("random.txt","[r,rw]");//只读模式。
+		raf.seek(8*1); //指定指针的位置。 实现随机读取文件中的数据。注意：数据最好有规律。
+		System.out.println("pos1 :"+raf.getFilePointer());
+		raf.write("lvoline".getBytes());
+		raf.writeInt(23);
+		raf.close();
+47.DataOutputStream/DateInputStream:专门用于操作基本数据类型的对象，有readXXX,writeXXX方法。
+48.UDP网络编程
+	udp的发送端
+		1）建立udp的socket服务，创建对象时如果没有明确端口，系统会自动分配一个未被使用的端口。
+		2）明确要发送的具体数据。
+		3）将数据封装成了数据包。
+		4）用socket服务的send方法将数据包发送出去。
+		5）关闭资源。
+			//1，建立udp的socket服务。
+			DatagramSocket ds = new DatagramSocket(8888);//指定发送端口，不指定系统会随机分配。
+			//2，明确要发送的具体数据。
+			String text = "udp传输演示 哥们来了";
+			byte[] buf = text.getBytes();
+			//3，将数据封装成了数据包。
+			DatagramPacket dp = new DatagramPacket(buf,
+			buf.length,InetAddress.getByName("10.1.31.127"),10000);
+			//4，用socket服务的send方法将数据包发送出去。
+			ds.send(dp);
+			//5，关闭资源。
+			ds.close();
+	udp的接收端
+		1）创建udp的socket服务，必须要明确一个端口，作用在于，只有发送到这个端口的数据才是这个接收端可以处理的数据。
+		2）定义数据包，用于存储接收到数据。
+		3）通过socket服务的接收方法将收到的数据存储到数据包中。
+		4）通过数据包的方法获取数据包中的具体数据内容，比如ip、端口、数据等等。
+		5)关闭资源。
+			//1，创建udp的socket服务。
+			DatagramSocket ds = new DatagramSocket(10000);
+			//2，定义数据包，用于存储接收到数据。先定义字节数组，数据包会把数据存储到字节数组中。
+			byte[] buf = new byte[1024];
+			DatagramPacket dp = new DatagramPacket(buf,buf.length);
+			//3，通过socket服务的接收方法将收到的数据存储到数据包中。
+			ds.receive(dp);//该方法是阻塞式方法。
+			//4，通过数据包的方法获取数据包中的具体数据内容，比如ip，端口，数据等等。
+			String ip = dp.getAddress().getHostAddress();
+			int port = dp.getPort();
+			String text = new String(dp.getData(),0,dp.getLength());//将字节数组中的有效部分转成字符串。
+			System.out.println(ip+":"+port+"--"+text);
+			//5，关闭资源。
+			ds.close();
+49.TCP网络编程
+	tcp客户端
+		1）建立tcp的socket服务，最好明确具体的地址和端口。这个对象在创建时，就已经可以对指定ip和端口进行连接(三次握手)。
+		2）如果连接成功，就意味着通道建立了，socket流就已经产生了。只要获取到socket流中的读取流和写入流即可，
+			只要通过getInputStream和getOutputStream就可以获取两个流对象。
+		3）关闭资源。	
+			Socket s = new Socket("10.1.31.69",10002);
+			OutputStream out = s.getOutputStream();//获取了socket流中的输出流对象。
+			out.write("tcp演示，哥们又来了!".getBytes());
+			s.close();
+	tcp服务器端
+		1）创建服务端socket服务，并监听一个端口。
+		2）服务端为了给客户端提供服务，获取客户端的内容，可以通过accept方法获取连接过来的客户端对象。
+		3）可以通过获取到的socket对象中的socket流和具体的客户端进行通讯。
+		4)如果通讯结束，关闭资源。注意：要先关客户端，再关服务端。
+			ServerSocket ss = new ServerSocket(10002);//建立服务端的socket服务
+			Socket s = ss.accept();//获取客户端对象
+			String ip = s.getInetAddress().getHostAddress();
+			System.out.println(ip+".....connected");
+			//可以通过获取到的socket对象中的socket流和具体的客户端进行通讯。
+			InputStream in = s.getInputStream();//读取客户端的数据，使用客户端对象的socket读取流
+			byte[] buf = new byte[1024];
+			int len = in.read(buf);
+			String text = new String(buf,0,len);
+			System.out.println(text);
+			//如果通讯结束，关闭资源。注意：要先关客户端，在关服务端。
+			s.close();
+			ss.close();	
+50.获取Class对象，有三种方式：
+	1)：通过每个对象都具备的方法getClass来获取。弊端：必须要创建该类对象，才可以调用getClass方法。
+	2)：每一个数据类型(基本数据类型和引用数据类型)都有一个静态的属性class。弊端：必须要先明确该类。
+		 前两种方式不利于程序的扩展，因为都需要在程序使用具体的类来完成。
+	3)：使用的Class类中的方法，静态的forName方法。
+		 指定什么类名，就获取什么类字节码文件对象，这种方式的扩展性最强，只要将类名的字符串传入即可。
+		// 1. 根据给定的类名来获得  用于类加载
+		String classname = "cn.itcast.reflect.Person";// 来自配置文件
+		Class clazz = Class.forName(classname);// 此对象代表Person.class
+		// 2. 如果拿到了对象，不知道是什么类型   用于获得对象的类型
+		Object obj = new Person();
+		Class clazz1 = obj.getClass();// 获得对象具体的类型
+		// 3. 如果是明确地获得某个类的Class对象  主要用于传参
+		Class clazz2 = Person.class;	
