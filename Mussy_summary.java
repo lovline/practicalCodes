@@ -290,7 +290,38 @@ public class Mussy_summary {
 		}else{
 			System.out.println("phone number is unlegal");
 		}
-*/		
+		
+		//高精度浮点数的运算
+		BigDecimal num1 = new BigDecimal(1.2345);
+		BigDecimal num2 = new BigDecimal(5.4321);
+		System.out.println(num1.add(num2));
+		System.out.println(num1.subtract(num2));
+		System.out.println(num1.multiply(num2));
+		System.out.println(num1.divide(num2,RoundingMode.HALF_UP));
+	
+		//枚举类型用法（枚举类型需要单独定义一个枚举的类）
+		public enum Size{
+			SMALL,MIDUM,LARGE
+		}
+		Size.ordinal();
+		Size.compareTo();
+		Size.equals();
+		Size.name();
+			
+
+		//用枚举接口遍历集合元素。
+		/**
+		 * Collections类的静态方法enumerarion()可以用来将任意集合转成枚举接口类型
+		 * 实现了Enumerartion接口的对象可以生成一系列对象，每次生成一个。通过连续调用nextElement()方法可以
+		 * 		连续获得枚举接口中的元素。但是如果枚举接口中已经没有元素，调用该方法会抛出异常，所以先用
+		 * 		hasMoreElements判断枚举中是否还有可用元素。
+		 */
+	/*	List list = Arrays.asList("BB","RR","TT");
+		Enumeration e = Collections.enumeration(list);
+		while(e.hasMoreElements()){
+			System.out.println(e.nextElement());
+		}
+		*/		
 	}
 
 }
