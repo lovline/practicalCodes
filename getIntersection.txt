@@ -1,0 +1,37 @@
+﻿A，B两个整数集合，设计一个算法求他们的交集，尽可能的高效。
+方法一：
+	private static Set<Integer> setMethod(int[] a,int[] b){
+        Set<Integer> set = new HashSet<Integer>();
+        Set<Integer> set2 = new HashSet<Integer>();
+        for(int i=0; i<a.length; i++) {
+            set.add(a[i]);
+        }
+        for(int j=0; j<b.length; j++) {
+            if(!set.add(b[j]))
+                set2.add(b[j]);
+        }
+        return set2;
+    }
+方法二：
+	private static Set<Integer> forMethod(int[] a,int[] b){
+        Set<Integer> set=new HashSet<Integer>();
+        int i=0,j=0;
+        while(i<a.length && j<b.length){
+            if(a[i]<b[j])
+                i++;
+            else if(a[i]>b[j])
+                j++;
+            else{
+                set.add(a[i]);
+                i++;
+                j++;
+            }
+        }
+        return set;
+    }
+
+结果对比：
+
+　　　　方法一用时：359 毫秒
+
+　　　　方法二用时：160 毫秒
